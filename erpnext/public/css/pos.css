@@ -43,7 +43,7 @@
   flex: 1.5;
 }
 .cart-items {
-  height: 400px;
+  height: 150px;
   overflow: auto;
 }
 .cart-items .list-item.current-item {

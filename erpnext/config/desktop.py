@@ -83,7 +83,7 @@ def get_data():
 			"color": "#f39c12",
 			"icon": "fa fa-truck",
 			"icon": "octicon octicon-package",
-			"type": "page"
+			"type": "page",
 			"link": "Order Graph"
 		},
 		{

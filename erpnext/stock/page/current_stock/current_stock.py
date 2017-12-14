@@ -22,13 +22,13 @@ def show_current_stock(user=None):
 	default_warehouse = select_warehouse.warehouse_name
 	frappe.msgprint(default_warehouse)
 	stock_details = frappe.get_list("Stock Ledger Entry", fields=["item_code"], filters={"warehouse":default_warehouse})
-		for stock_item_details in stock_details:
-			stock_list = {}
-	 		stock_list['item_code'] =  stock_item_details.item_code
-	 		data.append(stock_list);
-	 	    final_send_list = [ {"transaction_data":data}]
-        
-        return final_send_list
+	for stock_item_details in stock_details:
+		stock_list = {}
+		stock_list['item_code'] =  stock_item_details.item_code
+		data.append(stock_list);
+		final_send_list = [ {"transaction_data":data}]
+
+	return final_send_list
 		
 	#===========================================================================
 	# stock_details = frappe.get_list("Stock Ledger Entry", fields=["item_code"], filters={"warehouse":default_warehouse})
