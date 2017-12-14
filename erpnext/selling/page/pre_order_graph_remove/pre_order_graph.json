@@ -1,0 +1,20 @@
+{
+ "content": null, 
+ "creation": "2017-11-10 12:43:55.490896", 
+ "docstatus": 0, 
+ "doctype": "Page", 
+ "idx": 0, 
+ "modified": "2017-11-10 13:17:41.587722", 
+ "modified_by": "Administrator", 
+ "module": "Selling", 
+ "name": "pre-order-graph", 
+ "owner": "Administrator", 
+ "page_name": "Pre Order Graph", 
+ "restrict_to_domain": "Manufacturing", 
+ "roles": [], 
+ "script": null, 
+ "standard": "Yes", 
+ "style": null, 
+ "system_page": 0, 
+ "title": "Pre Order Graph"
+}

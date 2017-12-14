@@ -179,6 +179,12 @@ doc_events = {
 		"on_submit": "erpnext.stock.doctype.material_request.material_request.update_completed_and_requested_qty",
 		"on_cancel": "erpnext.stock.doctype.material_request.material_request.update_completed_and_requested_qty"
 	},
+	"Purchase Order": {
+		"on_submit": "erpnext.buying.doctype.purchase_order.branch_to_branch.purchase_order_to_sales_order",
+	},
+	"Sales Invoice": {
+		"on_submit": "erpnext.buying.doctype.purchase_order.branch_to_branch.sales_invoice_to_purchase_receipt",
+	},
 	"User": {
 		"after_insert": "frappe.contacts.doctype.contact.contact.update_contact",
 		"validate": "erpnext.hr.doctype.employee.employee.validate_employee_role",
@@ -188,7 +194,9 @@ doc_events = {
 	("Sales Taxes and Charges Template", 'Price List'): {
 		"on_update": "erpnext.shopping_cart.doctype.shopping_cart_settings.shopping_cart_settings.validate_cart_settings"
 	},
-
+	"*": {
+		"autoname": "erpnext.company_based_naming_series.company_based_naming_series_create",
+	}, 			
 	"Website Settings": {
 		"validate": "erpnext.portal.doctype.products_settings.products_settings.home_page_is_products"
 	},

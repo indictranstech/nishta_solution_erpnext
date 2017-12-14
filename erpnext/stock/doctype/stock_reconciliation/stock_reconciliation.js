@@ -3,8 +3,24 @@
 
 frappe.provide("erpnext.stock");
 
+
+
+
+
 frappe.ui.form.on("Stock Reconciliation", {
 	onload: function(frm) {
+		
+		
+		
+		
+		frappe.ui.make_app_page({
+			parent: wrapper,
+			title: 'Point of Sale',
+			single_column: true
+		});
+		
+		
+		//alert("ok");
 		frm.add_fetch("item_code", "item_name", "item_name");
 
 		// end of life
@@ -38,6 +54,7 @@ frappe.ui.form.on("Stock Reconciliation", {
 	},
 
 	get_items: function(frm) {
+		
 		frappe.prompt({label:"Warehouse", fieldtype:"Link", options:"Warehouse", reqd: 1},
 			function(data) {
 				frappe.call({

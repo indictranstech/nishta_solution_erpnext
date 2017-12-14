@@ -1,0 +1,28 @@
+<table border="2" width="200" class="body_val table">
+
+	<tr>
+		<td>S.No</td>
+		<td>Item Name</td>
+		<td>Warehouse</td>
+		<td>Qty</td>
+	</tr>
+
+
+	<tbody>
+		{% if(data.length>0) { %} {% for (i=0;i
+		<data.length;i++) { %}
+    	
+		<tr>
+			<td>{{i+1}}</td>
+
+			<td>{{data[i].item_code}}</td>
+			<td>{{data[i].warehouse}}</td>
+			<td>{{data[i].actual_qty}}</td>
+
+
+		</tr>
+    {% } %}
+    {% } %}
+    </tbody>
+
+</table>

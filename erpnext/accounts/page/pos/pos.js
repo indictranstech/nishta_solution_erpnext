@@ -2,6 +2,11 @@ frappe.provide("erpnext.pos");
 {% include "erpnext/public/js/controllers/taxes_and_totals.js" %}
 
 frappe.pages['pos'].on_page_load = function (wrapper) {
+	
+	
+
+	
+	
 	var page = frappe.ui.make_app_page({
 		parent: wrapper,
 		title: __('Point of Sale'),
@@ -80,11 +85,13 @@ erpnext.pos.PointOfSale = erpnext.taxes_and_totals.extend({
 	},
 
 	onload: function () {
+		
 		var me = this;
 		this.get_data_from_server(function () {
 			me.make_control();
 			me.create_new();
 			me.make();
+			
 		});
 	},
 

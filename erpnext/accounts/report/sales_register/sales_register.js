@@ -7,7 +7,7 @@ frappe.query_reports["Sales Register"] = {
 			"fieldname":"from_date",
 			"label": __("From Date"),
 			"fieldtype": "Date",
-			"default": frappe.datetime.add_months(frappe.datetime.get_today(), -1),
+			"default": frappe.datetime.add_months(frappe.datetime.get_today()),
 			"width": "80"
 		},
 		{
@@ -16,12 +16,7 @@ frappe.query_reports["Sales Register"] = {
 			"fieldtype": "Date",
 			"default": frappe.datetime.get_today()
 		},
-		{
-			"fieldname":"customer",
-			"label": __("Customer"),
-			"fieldtype": "Link",
-			"options": "Customer"
-		},
+		
 		{
 			"fieldname":"company",
 			"label": __("Company"),
@@ -37,3 +32,4 @@ frappe.query_reports["Sales Register"] = {
 		}
 	]
 }
+//alert(user);

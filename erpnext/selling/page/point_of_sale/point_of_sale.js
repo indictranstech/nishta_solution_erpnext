@@ -2,11 +2,20 @@
 frappe.provide('erpnext.pos');
 
 frappe.pages['point-of-sale'].on_page_load = function(wrapper) {
+	
+	
+	 
+	 
+	 
 	frappe.ui.make_app_page({
 		parent: wrapper,
 		title: 'Point of Sale',
 		single_column: true
 	});
+	
+	
+	
+	
 
 	frappe.db.get_value('POS Settings', {name: 'POS Settings'}, 'is_online', (r) => {
 		if (r && r.use_pos_in_offline_mode && !cint(r.use_pos_in_offline_mode)) {
@@ -101,6 +110,7 @@ erpnext.pos.PointOfSale = class PointOfSale {
 					if (value == 'Pay') {
 						if (!this.payment) {
 							this.make_payment_modal();
+						//	alert("ok");
 						} else {
 							this.frm.doc.payments.map(p => {
 								this.payment.dialog.set_value(p.mode_of_payment, p.amount);
@@ -140,6 +150,7 @@ erpnext.pos.PointOfSale = class PointOfSale {
 	}
 
 	make_items() {
+	// alert("ok");
 		this.items = new POSItems({
 			wrapper: this.wrapper.find('.item-container'),
 			pos_profile: this.pos_profile,
@@ -248,12 +259,40 @@ erpnext.pos.PointOfSale = class PointOfSale {
 			frm: this.frm,
 			events: {
 				submit_form: () => {
-					this.submit_sales_invoice();
+					 this.submit_sales_invoice();
+					//this.bill();
 				}
 			}
 		});
 	}
 
+	bill()
+	{
+		
+		
+		frappe.call({
+			method: 'erpnext.selling.page.point_of_sale.point_of_sale.submit_invoice',
+			freeze: true,
+			args: {
+				doc: this.frm.doc
+			}
+		});
+		this.frm.print_preview.printit(true);
+		
+		// this.frm.meta.default_print_format
+		// this.page.clear_actions();
+		 //this.pos_profile.print_format_for_online;
+		// this.toggle_editing();
+		// this.set_form_action();
+	// this.popitup();
+		this.make_new_invoice();
+		
+	}
+	
+	
+	
+	
+	
 	submit_sales_invoice() {
 
 		frappe.confirm(__("Permanently Submit {0}?", [this.frm.doc.name]), () => {
@@ -273,17 +312,24 @@ erpnext.pos.PointOfSale = class PointOfSale {
 
 					this.toggle_editing();
 					this.set_form_action();
+					//this.make_new_invoice();
 				}
 			});
 		});
 	}
 
+	
+	
+
+	
 	bind_events() {
 
 	}
 
 	setup_pos_profile() {
+		
 		return new Promise(resolve => {
+			// alert("ok");
 			frappe.call({
 				method: 'erpnext.stock.get_item_details.get_pos_profile',
 				args: {
@@ -320,6 +366,7 @@ erpnext.pos.PointOfSale = class PointOfSale {
 	}
 
 	make_new_invoice() {
+		// alert("344");
 		return frappe.run_serially([
 			() => this.make_sales_invoice_frm(),
 			() => {
@@ -329,7 +376,7 @@ erpnext.pos.PointOfSale = class PointOfSale {
 				} else {
 					this.make_cart();
 				}
-				this.toggle_editing(true);
+				// this.toggle_editing(true);
 			}
 		]);
 	}
@@ -392,6 +439,8 @@ erpnext.pos.PointOfSale = class PointOfSale {
 		this.page.set_secondary_action(__("Print"), () => {
 			if (this.pos_profile && this.pos_profile.print_format_for_online) {
 				this.frm.meta.default_print_format = this.pos_profile.print_format_for_online;
+				
+				
 			}
 			this.frm.print_preview.printit(true);
 		});
@@ -403,10 +452,13 @@ erpnext.pos.PointOfSale = class PointOfSale {
 		this.page.add_menu_item(__("Email"), () => {
 			this.frm.email_doc();
 		});
+		
 	}
 };
 
 class POSCart {
+	
+	// alert("ok");
 	constructor({frm, wrapper, pos_profile, events}) {
 		this.frm = frm;
 		this.item_data = {};
@@ -651,6 +703,8 @@ class POSCart {
 	}
 
 	add_item(item) {
+		// alert("ok");
+		// document.getElementById("set_focus").focus();
 		this.$empty_state.hide();
 
 		if (this.exists(item.item_code)) {
@@ -663,6 +717,7 @@ class POSCart {
 		}
 		this.highlight_item(item.item_code);
 		this.scroll_to_item(item.item_code);
+		
 	}
 
 	update_item(item) {
@@ -684,6 +739,7 @@ class POSCart {
 	}
 
 	get_item_html(item) {
+		
 		const is_stock_item = this.get_item_details(item.item_code).is_stock_item;
 		const rate = format_currency(item.rate, this.frm.doc.currency);
 		const indicator_class = (!is_stock_item || item.actual_qty >= item.qty) ? 'green' : 'red';
@@ -692,9 +748,12 @@ class POSCart {
 				<div class="item-name list-item__content list-item__content--flex-1.5 ellipsis">
 					${item.item_name}
 				</div>
-				<div class="quantity list-item__content text-right">
+				<div class="quantity list-item__content text-right" id="set_focus">
 					${get_quantity_html(item.qty)}
 				</div>
+				
+				
+				
 				<div class="discount list-item__content text-right">
 					${item.discount_percentage}%
 				</div>
@@ -707,6 +766,7 @@ class POSCart {
 		function get_quantity_html(value) {
 			return `
 				<div class="input-group input-group-xs">
+					
 					<span class="input-group-btn">
 						<button class="btn btn-default btn-xs" data-action="increment">+</button>
 					</span>
@@ -715,6 +775,9 @@ class POSCart {
 
 					<span class="input-group-btn">
 						<button class="btn btn-default btn-xs" data-action="decrement">-</button>
+					</span>
+					<span class="input-group-btn">
+						<button class="btn btn-default btn-xs" data-action="delete">D</button>
 					</span>
 				</div>
 			`;
@@ -735,6 +798,7 @@ class POSCart {
 	}
 
 	highlight_item(item_code) {
+		// alert("okkk");
 		const $item = this.$cart_items.find(`[data-item-code="${item_code}"]`);
 		$item.addClass('highlight');
 		setTimeout(() => $item.removeClass('highlight'), 1000);
@@ -753,7 +817,8 @@ class POSCart {
 
 		// quantity change
 		this.$cart_items.on('click',
-			'[data-action="increment"], [data-action="decrement"]', function() {
+			'[data-action="increment"], [data-action="decrement"],[data-action="delete"]', function() {
+			// alert("ok");
 				const $btn = $(this);
 				const $item = $btn.closest('.list-item[data-item-code]');
 				const item_code = $item.attr('data-item-code');
@@ -764,19 +829,30 @@ class POSCart {
 				} else if(action === 'decrement') {
 					events.on_field_change(item_code, 'qty', '-1');
 				}
+				else if(action === 'delete') {
+					// alert("delete");
+					// events.on_field_change(item_code, 'qty', '0');
+					const $input = $(this);
+					const $item = $input.closest('.list-item[data-item-code]');
+					const item_code = $item.attr('data-item-code');
+					events.on_field_change(item_code, 'qty', flt($input.val()));
+				}
 			});
+		
 
-		// this.$cart_items.on('focus', '.quantity input', function(e) {
-		// 	const $input = $(this);
-		// 	const $item = $input.closest('.list-item[data-item-code]');
-		// 	me.set_selected_item($item);
-		// 	me.set_input_active('Qty');
-		// 	e.preventDefault();
-		// 	e.stopPropagation();
-		// 	return false;
-		// });
+		this.$cart_items.on('focus', '.quantity input', function(e) {
+			
+		 const $input = $(this);
+		 const $item = $input.closest('.list-item[data-item-code]');
+		 me.set_selected_item($item);
+		 me.set_input_active('Qty');
+		 e.preventDefault();
+		 e.stopPropagation();
+		 return false;
+		});
 
 		this.$cart_items.on('change', '.quantity input', function() {
+			// alert("ok");
 			const $input = $(this);
 			const $item = $input.closest('.list-item[data-item-code]');
 			const item_code = $item.attr('data-item-code');
@@ -790,12 +866,13 @@ class POSCart {
 
 		// disable current item
 		// $('body').on('click', function(e) {
-		// 	console.log(e);
-		// 	if($(e.target).is('.list-item')) {
-		// 		return;
-		// 	}
-		// 	me.$cart_items.find('.list-item').removeClass('current-item qty disc rate');
-		// 	me.selected_item = null;
+		// console.log(e);
+		// if($(e.target).is('.list-item')) {
+		// return;
+		// }
+		// me.$cart_items.find('.list-item').removeClass('current-item qty disc
+		// rate');
+		// me.selected_item = null;
 		// });
 
 		this.wrapper.find('.additional_discount_percentage').on('change', (e) => {
@@ -904,6 +981,8 @@ class POSItems {
 			render_input: true,
 		});
 
+		
+		
 		frappe.ui.keys.on('ctrl+i', () => {
 			this.search_field.set_focus();
 		});
@@ -970,6 +1049,7 @@ class POSItems {
 	}
 
 	filter_items({ search_term='', item_group='All Item Groups' }={}) {
+		// alert("ok");
 		if (search_term) {
 			search_term = search_term.toLowerCase();
 
@@ -1266,12 +1346,17 @@ class Payment {
 	}
 
 	set_primary_action() {
+		
+		
+		
 		var me = this;
 
 		this.dialog.set_primary_action(__("Submit"), function() {
 			me.dialog.hide();
 			me.events.submit_form();
 		});
+		
+	
 	}
 
 	get_fields() {

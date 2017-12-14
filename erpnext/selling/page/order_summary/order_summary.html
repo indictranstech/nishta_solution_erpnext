@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.bottom_padding {
+	padding-bottom: 250px;
+}
+</style>
+</head>
+<body>
+	<div class="container page_div">
+		{% for(i=0;i< data.length ;i++){ %}
+
+
+
+		<table class="table">
+			<tr>
+
+				<td>
+					<h2>{{data[i].basic.company}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{data[i].basic.order_id}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{data[i].basic.deliver_mode}}
+						{{data[i].basic.pickup_store}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{data[i].basic.door_delivery_sale_point}}
+					</h2>
+
+					<h3>
+
+						{{data[i].basic.delivery_time}}
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						Comments To Production:
+						{{data[i].basic.note}} <br> {% for(j=0;j
+						<data[i]["items"].length;j++){ %}
+						
+						
+						{{data[i]["items"][j].item_name}}
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						{{data[i]["items"][j].qty}}
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						{{data[i]["items"][j].shape}}
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						{{data[i]["items"][j].egg_type}}
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						{{data[i]["items"][j].message}}
+						
+						<br>
+						
+						{% } %}
+						
+				</td>
+			</tr>
+			{% } %}
+		</table>
+
+
+
+
+
+	</div>
+
+</body>
+<script>
+	
+</script>
+</html>

@@ -1,6 +1,21 @@
 // Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and Contributors
 // License: GNU General Public License v3. See license.txt
 
+
+
+
+
+frappe.ui.form.on("Customer", "refresh", function(frm){
+	
+    frm.add_custom_button("Link", function(){
+			var myWin = window.open('https://google.com');
+	});
+});
+
+
+
+
+
 frappe.ui.form.on("Customer", {
 	setup: function(frm) {
 		frm.add_fetch('lead_name', 'company_name', 'customer_name');
@@ -26,6 +41,14 @@ frappe.ui.form.on("Customer", {
 		});
 	},
 	refresh: function(frm) {
+		
+		
+		frm.add_custom_button("Link", function(){
+			var myWin = window.open('https://google.com');
+	});
+	
+		
+		
 		if(frappe.defaults.get_default("cust_master_name")!="Naming Series") {
 			frm.toggle_display("naming_series", false);
 		} else {

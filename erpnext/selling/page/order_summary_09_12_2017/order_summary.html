@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.bottom_padding {
+	padding-bottom: 25px;
+}
+</style>
+</head>
+<body>
+	<div class="container page_div">
+		{% for(i=0;i< data.length ;i++){ %}
+
+		<div class="col-md-12 bottom_padding">
+			<div class="col-md-3 table-responsive">
+				<table class="table">
+					<tr>
+						<td>Order ID</td>
+						<td>{{data[i].basic.order_id}}</td>
+					</tr>
+					<tr>
+						<td>Delivery Time</td>
+						<td>{{data[i].basic.delivery_time}}</td>
+					</tr>
+					<tr>
+						<td>Notes</td>
+						<td>{{data[i].basic.note}}</td>
+					</tr>
+					<tr>
+						<td>Count</td>
+						<td>{{data[i].basic.count_items}}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-md-8 table-responsive">
+				<table class="table">
+					<tr>
+						<td>Item Name</td>
+						<td>Qty</td>
+						<td>Shape</td>
+						<td>Egg Type</td>
+						<td>Message</td>
+					</tr>
+					{% for(j=0;j
+					<data[i]["items"].length;j++){ %}
+					
+					
+					<tr>
+						<td>{{data[i]["items"][j].item_name}}</td>
+						<td>{{data[i]["items"][j].qty}}</td>
+						<td>{{data[i]["items"][j].shape}}</td>
+						<td>{{data[i]["items"][j].egg_type}}</td>
+						<td>{{data[i]["items"][j].message}}</td>
+					</tr>
+					{% } %}
+				</table>
+
+			</div>
+
+
+		</div>
+		{% } %}
+
+
+
+	</div>
+
+</body>
+<script>
+	
+</script>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body onload="return test();" class="body_val">
+
+	<div class="container">
+
+		<div class="table-responsive body_val">
+			<table class="table">
+				<thead>
+					<tr bgcolor="#F9E79F">
+						<th>S.No</th>
+						<th>Order Id</th>
+						<th>Delivery Date</th>
+						<th>Order Type</th>
+						<th>Customer Name</th>
+						<th>Mobile No</th>
+						<th>Delivery Time</th>
+						<th>Deliver Mode</th>
+						<th>Pickup Store</th>
+						<th>Total Amount</th>
+						<th>Advance</th>
+						<th>Balance</th>
+						<th>Status</th>
+					</tr>
+				<tbody>
+
+					{% if(data.length>0) { %} {% for (i=0;i
+					<data.length;i++) { %}
+					
+					<tr>
+						<td>{{i+1}}</td>
+						<td><a href="desk#Form/Sales%20Order/{{data[i].name}}"
+							target="_blank">{{data[i].name}}</a></td>
+						<td>{{data[i].deliver_date}}</td>
+						<td>{{data[i].type_of_order}}</td>
+						<td>{{data[i].customer}}</td>
+						<td>{{data[i].mobile}}</td>
+						<td>{{data[i].customer_delivery_time}}</td>
+						<td>{{data[i].deliver_mode}}</td>
+						<td>{{data[i].pickup_store}}</td>
+						<td>{{data[i].grand_total}}</td>
+						<td>{{data[i].advance_paid}}</td>
+						<td>{{(data[i].grand_total-data[i].advance_paid)}}</td>
+						<td>{{data[i].order_status}}</td>
+
+					</tr>
+   				 {% } %}
+    			 {% } %}
+    </tbody>
+			</table>
+		</div>
+	</div>
+
+</body>
+</html>

@@ -79,6 +79,14 @@ def get_data():
 			"hidden": 1
 		},
 		{
+			"module_name": "Selling",
+			"color": "#f39c12",
+			"icon": "fa fa-truck",
+			"icon": "octicon octicon-package",
+			"type": "page"
+			"link": "Order Graph"
+		},
+		{
 			"module_name": "Stock",
 			"color": "#f39c12",
 			"icon": "fa fa-truck",
@@ -133,6 +141,14 @@ def get_data():
 			"type": "page",
 			"link": "pos",
 			"label": _("POS")
+		},
+		{
+			"module_name": "Selling",
+			"color": "#589494",
+			"icon": "octicon octicon-credit-card",
+			"type": "page",
+			"link": "future-order",
+			"label": _("Order Summary")
 		},
 		{
 			"module_name": "Projects",

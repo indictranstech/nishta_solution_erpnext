@@ -1,0 +1,18 @@
+{
+ "content": null, 
+ "creation": "2017-12-07 08:23:47.057316", 
+ "docstatus": 0, 
+ "doctype": "Page", 
+ "idx": 0, 
+ "modified": "2017-12-07 08:23:49.073757", 
+ "modified_by": "Administrator", 
+ "module": "Selling", 
+ "name": "order-summary", 
+ "owner": "Administrator", 
+ "page_name": "Order Summary", 
+ "roles": [], 
+ "script": null, 
+ "standard": "Yes", 
+ "style": null, 
+ "system_page": 0
+}

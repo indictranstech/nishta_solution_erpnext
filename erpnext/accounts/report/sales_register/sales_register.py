@@ -125,9 +125,15 @@ def get_columns(invoice_list, additional_table_columns):
 	return columns, income_accounts, tax_accounts
 
 def get_conditions(filters):
-	conditions = ""
-
-	if filters.get("company"): conditions += " and company=%(company)s"
+	conditions=""
+	user_id = frappe.session.user
+	user_deta = frappe.db.get_value("User", filters={"name":user_id}, fieldname=["company"], as_dict=True)
+	company = user_deta.company
+	#===========================================================================
+	# if filters.get("company"): conditions += " and company=%(company)s"
+	#===========================================================================
+	if filters.get("company"): 
+		conditions += " and company  = %(company)s "
 	if filters.get("customer"): conditions += " and customer = %(customer)s"
 
 	if filters.get("from_date"): conditions += " and posting_date >= %(from_date)s"
@@ -137,7 +143,9 @@ def get_conditions(filters):
 		conditions += """ and exists(select name from `tabSales Invoice Payment`
 			 where parent=`tabSales Invoice`.name
 			 	and ifnull(`tabSales Invoice Payment`.mode_of_payment, '') = %(mode_of_payment)s)"""
-
+	#===========================================================================
+	# frappe.msgprint(conditions)
+	#===========================================================================
 	return conditions
 
 def get_invoices(filters, additional_query_columns):
@@ -145,6 +153,7 @@ def get_invoices(filters, additional_query_columns):
 		additional_query_columns = ', ' + ', '.join(additional_query_columns)
 
 	conditions = get_conditions(filters)
+	#frappe.msgprint(filters)
 	return frappe.db.sql("""select name, posting_date, debit_to, project, customer, customer_name, remarks,
 		base_net_total, base_grand_total, base_rounded_total, outstanding_amount {0}
 		from `tabSales Invoice`
