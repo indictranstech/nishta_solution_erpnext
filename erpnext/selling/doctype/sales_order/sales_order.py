@@ -488,6 +488,9 @@ def make_delivery_note(source_name, target_doc=None):
 			"doctype": "Delivery Note",
 			"validation": {
 				"docstatus": ["=", 1]
+			},
+			"field_map":{
+				"advance_paid":"advance_paid"	
 			}
 		},
 		"Sales Order Item": {
